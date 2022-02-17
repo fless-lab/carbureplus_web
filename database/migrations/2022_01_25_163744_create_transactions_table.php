@@ -19,7 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger("agent_id");
             $table->unsignedBigInteger("compagnie_id");
             $table->unsignedBigInteger("station_id");
-            $table->string("code_bon")->nullable();
+            $table->string("monnaie_recu")->nullable();
+            $table->string("valeur_bon")->nullable();
             $table->string("phone")->nullable();
             $table->string("payment_method");
             $table->string("status");

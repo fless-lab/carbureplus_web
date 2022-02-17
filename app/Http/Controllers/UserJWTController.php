@@ -105,6 +105,8 @@ class UserJWTController extends Controller
         $moyen = $request->payment_method;
         $status = "pending";
 
+        //Lancer une requete de payement et on ....SI on on une erreur lors de la requete on change le status en error
+
         $transaction = Transaction::create([
             "agent_id"=>$agent->id,
             "compagnie_id"=>$compagnie_id,
@@ -117,6 +119,7 @@ class UserJWTController extends Controller
 
         return response()->json([
             "success"=>true,
+            "message"=>"En attente de confirmation de la part du client"
             //Completer apres avec les autres détails...
         ]);
     }
@@ -126,24 +129,38 @@ class UserJWTController extends Controller
             et procede à la vente. Dès qu'on insert le code , la transaction est confirmée contrairement au payement mobile où il faille attendre une confirmation au niveau du client
         */
         $agent = auth()->user();
-        $code = $request->code;
-        //$phone = $request->phone;
+        $valeur_bon = $request->valeur_bon;
+        $phone = $request->phone;
         $compagnie_id = $agent->compagnie_id;
         $station_id = $agent->station_id;
         $montant = $request->montant;
         $moyen = "Bon";
-        $status = "success";
+        $status = "succeed";
+        $monnaie = $valeur_bon - $montant;
 
+        // Etant donné le fait que l'argent est déja encaissé par la compagnie en question , faut juste confirmer la transaction et envoyer de l'argent aux
+
+        if($monnaie>0){
+            //Puis on envoie la monnaie sur le numero du client
+            /*
+            Lorsque lors de l'envoie de l'argent au client , y'a une erreur, on fait le return ici en modifiant en mme
+            */
+        }
+
+
+        //On crée une transaction
         $transaction = Transaction::create([
             "agent_id"=>$agent->id,
             "compagnie_id"=>$compagnie_id,
             "station_id"=>$station_id,
-            "code_bon"=>$code,
-            //"phone"=>$phone,
+            "valeur_bon"=>$valeur_bon,
+            "phone"=>$phone,
+            "monnaie_recu"=>$monnaie,
             "montant"=>$montant,
             "payment_method"=>$moyen,
-            "status"=>$status,
+            "status"=>$status, //failed,succeed,pending
         ]);
+
 
 
         return response()->json([
@@ -155,7 +172,7 @@ class UserJWTController extends Controller
         $agent=auth()->user();
         $transactions = Transaction::where("compagnie_id",$agent->compagnie_id)->where("station_id",$agent->station_id)->where("agent_id",$agent->id)->orderBy("created_at","DESC")->get();
         foreach ($transactions as $transaction) {
-            $transaction["action_date"]=Carbon::parse($transaction["created_at"])->format("d/m/Y à h:i");
+            $transaction["action_date"]=Carbon::parse($transaction["created_at"])->format("d/m/Y à H:i");
         }
 
         return response()->json([
@@ -170,7 +187,7 @@ class UserJWTController extends Controller
         $today = Carbon::parse($today)->format("d/m/Y");
 
         $agent=auth()->user();
-        $transactions = Transaction::where("compagnie_id",$agent->compagnie_id)->where("station_id",$agent->station_id)->where("agent_id",$agent->id)->where("status","success")->get();
+        $transactions = Transaction::where("compagnie_id",$agent->compagnie_id)->where("station_id",$agent->station_id)->where("agent_id",$agent->id)->where("status","succeed")->get();
 
         $montant_total = 0;
         foreach ($transactions as $transaction) {

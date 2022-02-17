@@ -6,68 +6,75 @@ use App\Models\Compagnie;
 use App\Models\Station;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\type;
 
 class StationController extends Controller
 {
     public function index()
     {
         //Pour le graph
-        /*
-        $trans = Transaction::where("status","effectuee")->where("filiale_id",session("filiale.id"))->select("id","montant")
+
+        $trans = Transaction::where("status","succeed")->where("station_id",session("station.id"))->select("id","created_at","montant")
                     ->get()
                     ->groupBy(function($date){
                         return Carbon::parse($date->created_at)->format("m"); //Action_date
                     });
-        $transmcount = [];
-
-        function populate($transactions){
-            $t = [];
-            foreach ($transactions as $trans){
-                array_push($t,$trans->montant);
-            }
-            return array_sum($t);
-        }
-
-        $transArr = [];
+                    //dd($trans); //On recupere les données et elles sont classées par moi.
+        $trans_total_by_month = [];
+        $array = [];
 
         foreach ($trans as $key => $value) {
-            $transmcount[(int)$key] = populate($value);
+            $total = 0;
+            for ($i=0; $i < sizeof($value); $i++) {
+                $total+=$value[$i]->montant;
+            }
+            $array[intval($key)]=$total;
         }
+        // dd($array);
 
-        for($i=0;$i<12;$i++){
-            if(!empty($transmcount[$i+1])){
-                array_push($transArr,$transmcount[$i+1]);
+        for ($i=0; $i < 12; $i++) {
+            if(!empty($array[$i+1])){
+                array_push($trans_total_by_month,$array[$i+1]);
             }else{
-                array_push($transArr,0);
+                array_push($trans_total_by_month,0);
             }
         }
-        //####################//
 
-        //$this_month = now()->month;
-        // dd(now()->format("d/m/Y"));
-        $n_trans = count(
-            Transaction::where("status","effectuee")->where("filiale_id",session("filiale.id"))->get());
-        //$this_month_trans =Transaction::where("status","effectuee")->where("filiale_id",session("filiale.id"))->get();
-        //dd($this_month_trans);
-        $n_clients = Transaction::where("status","effectuee")->where("filiale_id",session("filiale.id"))->distinct()->count("receiver_id");        // dd($n_client);
-        $revenues_totales = Transaction::where("status","effectuee")->where("filiale_id",session("filiale.id"))->get();
 
-        $ventes_totales = [];
-        foreach ($revenues_totales as $vente){
-            array_push($ventes_totales,$vente->montant);
+        $now = Carbon::now();
+        $today = Carbon::parse($now)->format("d/m/Y");
+        $this_month = Carbon::parse($now)->format("m");
+        $transactions = Transaction::where("compagnie_id",session("station.compagnie_id"))->where("station_id",session("station.id"))->where("status","succeed")->get();
+        // dd($transactions);
+        $montant_total_today = 0;
+        $montant_total_this_month = 0;
+        $transactions_this_month=0;
+        $transactions_today=0;
+        foreach ($transactions as $transaction) {
+            if(Carbon::parse($transaction["created_at"])->format("d/m/Y") == $today){
+                $montant_total_today+=$transaction["montant"];
+                $transactions_today++;
+            }
+        }
+        foreach ($transactions as $transaction) {
+            if(Carbon::parse($transaction["created_at"])->format("m") == $this_month){
+                $montant_total_this_month+=$transaction["montant"];
+                $transactions_this_month++;
+            }
         }
 
-        //$ventes_m = Transaction::where("sender_id",$agent->id)->where("status","effectuee")->where("")->get("montant");
+        // dd(["total_month"=>$montant_total_this_month,"total_today"=>$montant_total_today,"transactions_month"=>$transactions_this_month,"transactions_today"=>$transactions_today,"total_per_month"=>$trans_total_by_month]);
+        return view("station.index",["total_month"=>$montant_total_this_month,"total_today"=>$montant_total_today,"transactions_month"=>$transactions_this_month,"transactions_today"=>$transactions_today,"total_per_month"=>$trans_total_by_month]);
 
-        // dd($transArr);
-        return view("filiale.index",["revenues"=>array_sum($ventes_totales),"n_transactions"=>$n_trans,"n_clients"=>$n_clients,"tab_transacs"=>$transArr]);
-        */
-        return view("station.index");
+        // return view("station.index");
     }
+
+
 
     public function getLogin()
     {

@@ -13,9 +13,9 @@ class Transaction extends Model
         "agent_id",
         "compagnie_id",
         "station_id",
-        "phone", //Ce phone a 2 usage. Dans le cas où la transaction se fait via mobile money, on l'utilise pour lancer la requête de payement
-        //et ci c'est via bon , on l'utilise pour envoyer le reste du montant qu'il restera (eventuelement) une fois le payement effectué.
-        "code_bon",
+        "phone",
+        "valeur_bon",
+        "monnaie_recu",
         "montant",
         "payment_method",
         "status" //pending, success, error

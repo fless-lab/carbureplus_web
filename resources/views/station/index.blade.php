@@ -8,7 +8,7 @@
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
                             <div class="stat-text">Revenu (Ce mois)</div>
-                            <div class="stat-digit">(fcfa) 23000</div>
+                            <div class="stat-digit">(fcfa) {{ $total_month }}</div>
                         </div>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
                             <div class="stat-text">Revenu (Aujourd'hui)</div>
-                            <div class="stat-digit">(fcfa) 7800</div>
+                            <div class="stat-digit">(fcfa) {{ $total_today }}</div>
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
                 <div class="card">
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
-                            <div class="stat-text">Transactions (Totale)</div>
-                            <div class="stat-digit"> 123</div>
+                            <div class="stat-text">Transactions (Ce mois)</div>
+                            <div class="stat-digit"> {{ $transactions_month }}</div>
                         </div>
                     </div>
                 </div>
@@ -37,8 +37,8 @@
                 <div class="card">
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
-                            <div class="stat-text">Transaction (Effectives)</div>
-                            <div class="stat-digit"> 93</div>
+                            <div class="stat-text">Transactions (Aujourd'hui)</div>
+                            <div class="stat-digit"> {{ $transactions_today }}</div>
                         </div>
                     </div>
                 </div>
@@ -67,53 +67,22 @@
 
 @section('script')
     <script>
+        let transactions = @json($total_per_month);
+        let transactions_last_year = [1560,2655,8520,10025,3200,3095,6780,1200,4575,9000,12000,7930] //Fake data
+        let months = ["Jan","Fev","Mar","Avr","Mai","Jun","Jui","Aou","Sep","Oct","Nov","Dec"];
+        data = [];
+        for (let i = 0; i < transactions.length; i++) {
+            let build = {
+                m: months[i],
+                a: transactions[i],
+                b: transactions_last_year[i]
+            }
+            data.push(build);
+        }
+        //console.log(data);
         Morris.Bar({
         element: 'ventes-overview-chart',
-        data: [{
-            m: 'Jan',
-            a: 100,
-            b: 90
-        }, {
-            m: 'Fev',
-            a: 75,
-            b: 65
-        }, {
-            m: 'Avr',
-            a: 50,
-            b: 40
-        }, {
-            m: 'Mai',
-            a: 75,
-            b: 65
-        }, {
-            m: 'Jun',
-            a: 50,
-            b: 40
-        }, {
-            m: 'Jui',
-            a: 75,
-            b: 65
-        }, {
-            m: 'Aou',
-            a: 100,
-            b: 90
-        }, {
-            m: 'Sep',
-            a: 48,
-            b: 23
-        }, {
-            m: 'Oct',
-            a: 120,
-            b: 90
-        }, {
-            m: 'Nov',
-            a: 70,
-            b: 83
-        }, {
-            m: 'Dec',
-            a: 23,
-            b: 59
-        }],
+        data: data,
         xkey: 'm',
         ykeys: ['a', 'b'],
         labels: ['Cette Année', 'L\'an dernier'],
