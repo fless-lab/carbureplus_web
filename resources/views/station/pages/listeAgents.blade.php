@@ -31,8 +31,8 @@
                                         <td>{{$agent->prenom}}</td>
                                         <td>{{$agent->phone}}</td>
                                         <td>{{$agent->created_at}}</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $agent->total }}</td>
+                                        <td>{{ $agent->total_month }}</td>
                                         <td><a href="{{route("station.agent.update",$agent->mime)}}" style="color: green">Modifier</a></td>
                                     </tr>
                                     @endforeach

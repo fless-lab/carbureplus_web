@@ -67,7 +67,7 @@
 
 @section('script')
     <script>
-        let transactions = @json($total_per_month);
+        let transactions = @json($total_per_month); //Ce mois..
         let transactions_last_year = [1560,2655,8520,10025,3200,3095,6780,1200,4575,9000,12000,7930] //Fake data
         let months = ["Jan","Fev","Mar","Avr","Mai","Jun","Jui","Aou","Sep","Oct","Nov","Dec"];
         data = [];

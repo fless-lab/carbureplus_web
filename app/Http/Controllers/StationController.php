@@ -19,29 +19,29 @@ class StationController extends Controller
     {
         //Pour le graph
 
-        $trans = Transaction::where("status","succeed")->where("station_id",session("station.id"))->select("id","created_at","montant")
-                    ->get()
-                    ->groupBy(function($date){
-                        return Carbon::parse($date->created_at)->format("m"); //Action_date
-                    });
-                    //dd($trans); //On recupere les données et elles sont classées par moi.
+        $trans = Transaction::where("status", "succeed")->where("station_id", session("station.id"))->select("id", "created_at", "montant")
+            ->get()
+            ->groupBy(function ($date) {
+                return Carbon::parse($date->created_at)->format("m"); //Action_date
+            });
+        //dd($trans); //On recupere les données et elles sont classées par moi.
         $trans_total_by_month = [];
         $array = [];
 
         foreach ($trans as $key => $value) {
             $total = 0;
-            for ($i=0; $i < sizeof($value); $i++) {
-                $total+=$value[$i]->montant;
+            for ($i = 0; $i < sizeof($value); $i++) {
+                $total += $value[$i]->montant;
             }
-            $array[intval($key)]=$total;
+            $array[intval($key)] = $total;
         }
         // dd($array);
 
-        for ($i=0; $i < 12; $i++) {
-            if(!empty($array[$i+1])){
-                array_push($trans_total_by_month,$array[$i+1]);
-            }else{
-                array_push($trans_total_by_month,0);
+        for ($i = 0; $i < 12; $i++) {
+            if (!empty($array[$i + 1])) {
+                array_push($trans_total_by_month, $array[$i + 1]);
+            } else {
+                array_push($trans_total_by_month, 0);
             }
         }
 
@@ -49,27 +49,27 @@ class StationController extends Controller
         $now = Carbon::now();
         $today = Carbon::parse($now)->format("d/m/Y");
         $this_month = Carbon::parse($now)->format("m");
-        $transactions = Transaction::where("compagnie_id",session("station.compagnie_id"))->where("station_id",session("station.id"))->where("status","succeed")->get();
+        $transactions = Transaction::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->where("status", "succeed")->get();
         // dd($transactions);
         $montant_total_today = 0;
         $montant_total_this_month = 0;
-        $transactions_this_month=0;
-        $transactions_today=0;
+        $transactions_this_month = 0;
+        $transactions_today = 0;
         foreach ($transactions as $transaction) {
-            if(Carbon::parse($transaction["created_at"])->format("d/m/Y") == $today){
-                $montant_total_today+=$transaction["montant"];
+            if (Carbon::parse($transaction["created_at"])->format("d/m/Y") == $today) {
+                $montant_total_today += $transaction["montant"];
                 $transactions_today++;
             }
         }
         foreach ($transactions as $transaction) {
-            if(Carbon::parse($transaction["created_at"])->format("m") == $this_month){
-                $montant_total_this_month+=$transaction["montant"];
+            if (Carbon::parse($transaction["created_at"])->format("m") == $this_month) {
+                $montant_total_this_month += $transaction["montant"];
                 $transactions_this_month++;
             }
         }
 
         // dd(["total_month"=>$montant_total_this_month,"total_today"=>$montant_total_today,"transactions_month"=>$transactions_this_month,"transactions_today"=>$transactions_today,"total_per_month"=>$trans_total_by_month]);
-        return view("station.index",["total_month"=>$montant_total_this_month,"total_today"=>$montant_total_today,"transactions_month"=>$transactions_this_month,"transactions_today"=>$transactions_today,"total_per_month"=>$trans_total_by_month]);
+        return view("station.index", ["total_month" => $montant_total_this_month, "total_today" => $montant_total_today, "transactions_month" => $transactions_this_month, "transactions_today" => $transactions_today, "total_per_month" => $trans_total_by_month]);
 
         // return view("station.index");
     }
@@ -177,13 +177,34 @@ class StationController extends Controller
     public function listeAgents()
     {
         $agents = User::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->get();
+        foreach ($agents as $agent) {
+            $now = Carbon::now();
+            $this_month = Carbon::parse($now)->format("m");
+            $transactions = Transaction::where("compagnie_id", $agent->compagnie_id)->where("station_id", $agent->station_id)->where("agent_id", $agent->id)->where("status", "succeed")->get();
+            $montant_total = 0;
+            $montant_total_this_month = 0;
+            foreach ($transactions as $transaction) {
+                $montant_total += $transaction["montant"];
+            }
+            foreach ($transactions as $transaction) {
+                if (Carbon::parse($transaction["created_at"])->format("m") == $this_month) {
+                    $montant_total_this_month += $transaction["montant"];
+                }
+            }
+            $agent["total_month"]=$montant_total_this_month;
+            $agent["total"]=$montant_total;
+        }
+
+        // dd($agents);
+
         return view("station.pages.listeAgents", ["agents" => $agents]);
     }
 
 
-    public function getUpdateForm($mime){
-        $agent = User::where("mime",$mime)->first();
-        return view("station.pages.updateAgent",["agent"=>$agent]);
+    public function getUpdateForm($mime)
+    {
+        $agent = User::where("mime", $mime)->first();
+        return view("station.pages.updateAgent", ["agent" => $agent]);
     }
 
     public function updateAgent(Request $request, $mime)
