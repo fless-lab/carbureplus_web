@@ -17,7 +17,7 @@ class StationController extends Controller
 {
     public function index()
     {
-        //Pour le graph
+        //Pour le graph ...
 
         $trans = Transaction::where("status", "succeed")->where("station_id", session("station.id"))->select("id", "created_at", "montant")
             ->get()
