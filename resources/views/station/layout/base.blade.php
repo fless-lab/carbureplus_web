@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset("assets/logo-mini.png") }}" type="image/x-icon">
     <title>Carbure + | Station</title>
     <link rel="stylesheet" href="{{asset("assets/station/vendor/owl-carousel/css/owl.carousel.min.css")}}">
     <link rel="stylesheet" href="{{asset("assets/station/owl-carousel/css/owl.theme.default.min.css")}}">
