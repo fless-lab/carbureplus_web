@@ -1,8 +1,6 @@
 <div class="nav-header">
-    <a href="index.html" class="brand-logo">
-        <img class="logo-abbr" src="./images/logo.png" alt="">
-        <img class="logo-compact" src="{{asset("assets/logo.png")}}" alt="">
-        <img class="brand-title" src="{{asset("assets/logo.png")}}" alt="">
+    <a href="{{ route("station.index") }}" class="brand-logo">
+        <img class="brand-title" src="{{asset("assets/logo.png")}}" alt="Carbure +">
     </a>
 
     <div class="nav-control">
@@ -16,7 +14,7 @@
     <div class="header-content">
         <nav class="navbar navbar-expand">
             <div class="collapse navbar-collapse justify-content-between">
-                <Center>{{session("station.nom")}}</Center>
+                <center>{{session("station.nom")}}</center>
                 <ul class="navbar-nav header-right">
                     <li class="nav-item dropdown header-profile">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown">

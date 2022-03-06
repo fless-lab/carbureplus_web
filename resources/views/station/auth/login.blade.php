@@ -10,16 +10,21 @@
 
 </head>
 
-<body class="h-100">
+<body class="h-100" style="background-color: rgb(84, 73, 122)">
     <div class="authincation h-100">
+
+
         <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100 align-items-center">
+            <div class="text-center py-5">
+                <h3 style="color: white">Gérez plus facilement votre station grace à « Carbure + station » !</h3>
+                </div>
+            <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
                     <div class="authincation-content">
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Connectez-vous à votre compte</h4>
+                                    <h4 class="text-center mb-2">CONNECTEZ-VOUS !</h4>
                                     <div class="text-center" style="padding-top:30px">
                                         @if (session("error"))
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: white">
@@ -49,7 +54,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Se Connecter</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
                                         </div>
                                     </form>
                                 </div>

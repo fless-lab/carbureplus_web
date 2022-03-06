@@ -13,6 +13,7 @@ class Station extends Model
         "nom",
         "password",
         "phone",
+        "phone_vente",
         'mime',
         "email",
         "siege",

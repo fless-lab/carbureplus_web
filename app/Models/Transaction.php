@@ -18,6 +18,7 @@ class Transaction extends Model
         "monnaie_recu",
         "montant",
         "payment_method",
+        "mime",
         "status" //pending, success, error
     ];
 

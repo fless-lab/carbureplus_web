@@ -20,6 +20,7 @@ class CreateStationsTable extends Migration
             $table->string("siege");
             $table->string("email");
             $table->string("phone");
+            $table->string("phone_vente");
             $table->string("password");
             $table->mediumText("mime");
             $table->timestamps();

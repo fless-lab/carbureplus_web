@@ -68,8 +68,27 @@ class StationController extends Controller
             }
         }
 
+
+        $flooz = 0;
+        $tmoney = 0;
+        $bon = 0;
+        $total = 0;
+        $ventes = Transaction::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->where("status","succeed")->get();
+        foreach ($ventes as $vente) {
+            // if (Carbon::parse($vente["created_at"])->format("m") == $this_month) {
+            $total += $vente["montant"];
+            if ($vente["payment_method"] == "Flooz") {
+                $flooz += $vente["montant"];
+            } elseif ($vente["payment_method"] == "T-Money") {
+                $tmoney += $vente["montant"];
+            } else {
+                $bon += $vente["montant"];
+            }
+            // }
+        }
+
         // dd(["total_month"=>$montant_total_this_month,"total_today"=>$montant_total_today,"transactions_month"=>$transactions_this_month,"transactions_today"=>$transactions_today,"total_per_month"=>$trans_total_by_month]);
-        return view("station.index", ["total_month" => $montant_total_this_month, "total_today" => $montant_total_today, "transactions_month" => $transactions_this_month, "transactions_today" => $transactions_today, "total_per_month" => $trans_total_by_month]);
+        return view("station.index", ["total"=>$total,"flooz"=>$flooz,"tmoney"=>$tmoney,"bon"=>$bon,"total_month" => $montant_total_this_month, "total_today" => $montant_total_today, "transactions_month" => $transactions_this_month, "transactions_today" => $transactions_today, "total_per_month" => $trans_total_by_month]);
 
         // return view("station.index");
     }
@@ -122,20 +141,26 @@ class StationController extends Controller
 
     public function transactions()
     {
-        $transactions = Transaction::where("station_id", session("station.id"))->get();
+        $transactions = Transaction::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->get();
         if ($transactions) {
-
-            // for ($i = 0; $i < count($transactions); $i++) {
-            //     $transactions[$i]["agent"] = User::find($transactions[$i]->sender_id);
-            //     $transactions[$i]["client"] = User::find($transactions[$i]->receiver_id);
-            //     unset($transactions[$i]["sender_id"]);
-            //     unset($transactions[$i]["sender_type"]);
-            //     unset($transactions[$i]["receiver_id"]);
-            //     unset($transactions[$i]["receiver_type"]);
-            //     unset($transactions[$i]["updated_at"]);
-            // }
+            foreach ($transactions as $transaction) {
+                $transaction["agent"] = User::find($transaction->agent_id);
+            }
         }
         return view("station.pages.transactions", ["transactions" => $transactions]);
+    }
+
+    public function transactionsParAgent($mime)
+    {
+        $agent = User::where("mime", $mime)->first();
+        $transactions = Transaction::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->where("agent_id", $agent->id)->get();
+        if ($transactions) {
+            foreach ($transactions as $transaction) {
+                $transaction["agent"] = User::find($transaction->agent_id);
+            }
+        }
+
+        return view("station.pages.transactionsParAgent", ["transactions" => $transactions, "agent" => $agent]);
     }
 
     public function update(Request $request)
@@ -165,7 +190,7 @@ class StationController extends Controller
             "prenom" => $request->input("prenom"),
             "phone" => $request->input("phone"),
             "password" => Hash::make($request->input("password")),
-            "mime" => Str::random(30),
+            "mime" => Str::upper(Str::random(10)),
             "compagnie_id" => session("station.compagnie_id"),
             "station_id" => session("station.id"),
             "photo_profile" => Compagnie::find(session("station.compagnie_id"))->logo_path,
@@ -191,13 +216,19 @@ class StationController extends Controller
                     $montant_total_this_month += $transaction["montant"];
                 }
             }
-            $agent["total_month"]=$montant_total_this_month;
-            $agent["total"]=$montant_total;
+            $agent["total_month"] = $montant_total_this_month;
+            $agent["total"] = $montant_total;
         }
 
         // dd($agents);
 
         return view("station.pages.listeAgents", ["agents" => $agents]);
+    }
+
+    public function agents()
+    {
+        $agents = User::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->get();
+        return view("station.pages.agents", ["agents" => $agents]);
     }
 
 

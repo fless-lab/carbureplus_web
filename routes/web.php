@@ -6,19 +6,12 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\CompagnieController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get("/",function(){
+    return view("welcome");
+});
 
-// Route::get('/', function () {
-//     return view('superadmin.auth.login');
+// Route::get("/",function(){
+//     return view("com_compagnie.services.stations.add");
 // });
 
 Route::group(["prefix" => "superadmin"], function () {
@@ -60,7 +53,9 @@ Route::group(["prefix" => "station"], function () {
         Route::post("/agent/ajouter",[StationController::class,'storeAgent'])->name("station.agent.store");
         Route::get("/agents/{mime}/maj",[StationController::class,'getUpdateForm'])->name("station.agent.update.form");
         Route::put("/agents/{mime}/maj",[StationController::class,'updateAgent'])->name("station.agent.update");
-        Route::get("/agents",[StationController::class,"listeAgents"])->name("station.agents.liste");
+        Route::get("/liste-des-agents",[StationController::class,"listeAgents"])->name("station.agents.liste");
+        Route::get("/agents",[StationController::class,"agents"])->name("station.agents");
+        Route::get("/agents/{mime}/transactions",[StationController::class,"transactionsParAgent"])->name("station.agents.transactions");
     });
 
 
@@ -79,13 +74,25 @@ Route::group(["prefix" => "compagnie"], function () {
         Route::get("/profile", [CompagnieController::class, "profile"])->name("compagnie.profile");
         Route::put("/maj", [CompagnieController::class, "update"])->name("compagnie.update");
         Route::get("/statistiques", [CompagnieController::class, "statistiques"])->name("compagnie.statistiques");
-        // Route::get("/clients/liste",[SuperAdminController::class,"listClientsInscrits"])->name("super.clients.liste");
 
         Route::get("/station/creer",[CompagnieController::class,'createStation'])->name("compagnie.station.create");
         Route::post("/station/creer",[CompagnieController::class,'storeStation'])->name("compagnie.station.store");
-        Route::put("/stations/{mime}/maj",[CompagnieController::class,'updateStation'])->name("compagnie.station.update");
-        Route::get("/stations",[CompagnieController::class,"listeStations"])->name("compagnie.stations.liste");
+        Route::get("/stations/{mime}/update",[CompagnieController::class,"editStation"])->name("compagnie.station.edit");
+        Route::put("/stations/{mime}/update",[CompagnieController::class,'updateStation'])->name("compagnie.station.update");
+        Route::get("/liste-des-stations",[CompagnieController::class,"listeStations"])->name("compagnie.stations.liste");
+        Route::delete("/stations/{mime}",[CompagnieController::class,"deleteStation"])->name("compagnie.station.delete");
         Route::get("/stations/{mime}",[CompagnieController::class,"afficherStation"])->name("compagnie.station.show");
+
+        Route::get("/stations",[CompagnieController::class,"get_stations"])->name("compagnie.stations");
+        Route::get("/stationss",[CompagnieController::class,"get_stations_bis"])->name("compagnie.stations.bis");
+
+        Route::get("/stations/{mime}/agents",[CompagnieController::class,"get_agents_by_station"])->name("compagnie.stations.agents");
+        Route::get("/agents",[CompagnieController::class,"get_all_agents"])->name("compagnie.agents");
+        Route::get("/agents/{mime}",[CompagnieController::class,"get_agent"])->name("compagnie.agent");
+
+        Route::get("/stations/{mime}/ventes",[CompagnieController::class,"get_ventes_by_station"])->name("compagnie.stations.ventes");
+        Route::get("/ventes",[CompagnieController::class,"get_all_ventes"])->name("compagnie.ventes");
+
 
     });
 

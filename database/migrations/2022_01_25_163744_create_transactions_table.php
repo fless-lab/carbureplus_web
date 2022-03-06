@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->string("phone")->nullable();
             $table->string("payment_method");
             $table->string("status");
+            $table->string("mime");
             $table->timestamps();
         });
     }

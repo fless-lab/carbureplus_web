@@ -114,8 +114,12 @@ class UserJWTController extends Controller
             "phone"=>$phone,
             "montant"=>$montant,
             "payment_method"=>$moyen,
-            "status"=>$status,
+            "status"=>"succeed", //Je met ça en attendant histoire de voir les differents graphes;
+            // "status"=>$status,
+            "mime"=>Str::upper(Str::random(10))
+
         ]);
+
 
         return response()->json([
             "success"=>true,
@@ -159,8 +163,16 @@ class UserJWTController extends Controller
             "montant"=>$montant,
             "payment_method"=>$moyen,
             "status"=>$status, //failed,succeed,pending
+            "mime"=>Str::upper(Str::random(10))
         ]);
 
+        //si une erreur se produit
+        if(!$transaction){
+            return response()->json([
+                "success"=>false,
+                "message"=>"Une erreur s'est produite."
+            ]);
+        }
 
 
         return response()->json([

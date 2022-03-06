@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Abdou-Raouf ATARMLA">
 
-    <title>Carbure + | SuperAdmin</title>
+    <title>Carbure + | Super Panel</title>
     <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/admin/css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -39,127 +39,131 @@
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <div class="header center">
-                        <span class="navbar-left">Carbure + | Admin panel</span>
-                        <a href="{{route('super.deconnexion')}}" class="navbar-right ml-5 btn btn-danger btn-sm">Se deconnecter</a>
+                        <span class="navbar-left">Carbure + | Super Panel</span>
+                        <a href="{{ route('super.deconnexion') }}" class="navbar-right ml-5 btn btn-danger btn-sm">Se
+                            déconnecter</a>
+                    </div>
+            </div>
+            </nav>
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-2 text-gray-800">Companies</h1>
+                <p class="mb-4">Liste complète des compagnies qui sont enregistrées dans notre base et qui
+                    utilisent le service.</p>
+
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h1 class="h3 mb-0 text-gray-800">Compagnies</h1>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#"
+                                data-toggle="modal" data-target="#addCompagnieModal"><i
+                                    class="fas fa-users fa-sm text-white-50"></i> Ajouter une compagnie</a>
                         </div>
                     </div>
-                </nav>
-                <div class="container-fluid">
-
-                    <h1 class="h3 mb-2 text-gray-800">Liste des Companies</h1>
-                    <p class="mb-4">Liste complète des compagnies qui sont enregistrées dans notre base et qui
-                        utilisent le service.</p>
-
-
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <div class="d-sm-flex align-items-center justify-content-between">
-                                <h1 class="h3 mb-0 text-gray-800">Compagnies</h1>
-                                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#"
-                                    data-toggle="modal" data-target="#addCompagnieModal"><i
-                                        class="fas fa-users fa-sm text-white-50"></i> Ajouter une compagnie</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Date d'enregistrement</th>
+                                        <th>Mettre à jour</th>
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($compagnies as $compagnie)
                                         <tr>
-                                            <th>Nom</th>
-                                            <th>Email</th>
-                                            <th>Date d'enregistrement</th>
-                                            <th>Mettre à jour</th>
-                                            <th>Supprimer</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($compagnies as $compagnie)
-                                            <tr>
-                                                <td>{{ $compagnie->nom }}</td>
-                                                <td>{{ $compagnie->email }}</td>
-                                                <td>{{ $compagnie->created_at }}</td>
-                                                <td><a style="color: green" href="#" data-toggle="modal"
-                                                        data-target="#updateCompagnieModal{{ $compagnie->id }}">Mettre à
-                                                        jour</a></td>
-                                                <td><form action="{{route("super.compagnies.delete", $compagnie->mime)}}"
+                                            <td>{{ $compagnie->nom }}</td>
+                                            <td>{{ $compagnie->email }}</td>
+                                            <td>@php
+                                                setlocale(LC_TIME, 'fr_FR');
+                                                echo strftime('%d %B %G à %H:%m', strtotime($compagnie->created_at));
+                                            @endphp</td>
+                                            <td><a style="color: green" href="#" data-toggle="modal"
+                                                    data-target="#updateCompagnieModal{{ $compagnie->id }}">Mettre à
+                                                    jour</a></td>
+                                            <td>
+                                                <form action="{{ route('super.compagnies.delete', $compagnie->mime) }}"
                                                     method="POST" class="inline-block">
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="btn btn-inline text-danger">
                                                         Supprimer
                                                     </button>
-                                                </form></td>
-                                            </tr>
+                                                </form>
+                                            </td>
+                                        </tr>
 
-                                            <div class="modal fade" id="updateCompagnieModal{{ $compagnie->id }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="updateCompagnieLabel{{ $compagnie->id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Mettre à
-                                                                jour la compagnie <b>{{ $compagnie->nom }}</b></h5>
-                                                            <button class="close" type="button"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="user" id="update_compagnie_form"
-                                                                action="{{ route('super.compagnie.update', $compagnie->mime) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method("PUT")
-                                                                <div class="form-group">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-user" id="nom"
-                                                                        name="nom" value="{{ $compagnie->nom }}">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="email"
-                                                                        class="form-control form-control-user"
-                                                                        id="email" name="email"
-                                                                        value="{{ $compagnie->email }}">
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                        <input type="password"
-                                                                            class="form-control form-control-user"
-                                                                            id="password" name="password"
-                                                                            placeholder="Nouveau mot de passe">
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <input type="password"
-                                                                            class="form-control form-control-user"
-                                                                            id="password_confirmation"
-                                                                            name="password_confirmation"
-                                                                            placeholder="Confirmez le mot de passe">
-                                                                    </div>
-                                                                </div>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <a class="btn btn-secondary" href="#!" type="button"
-                                                                data-dismiss="modal">Annuler</a>
-                                                            <button class="btn btn-success" type="submit">Mettre à
-                                                                jour</button>
-                                                        </div>
-                                                        </form>
+                                        <div class="modal fade" id="updateCompagnieModal{{ $compagnie->id }}"
+                                            tabindex="-1" role="dialog"
+                                            aria-labelledby="updateCompagnieLabel{{ $compagnie->id }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Mettre à
+                                                            jour la compagnie <b>{{ $compagnie->nom }}</b></h5>
+                                                        <button class="close" type="button"
+                                                            data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
                                                     </div>
+                                                    <div class="modal-body">
+                                                        <form class="user" id="update_compagnie_form"
+                                                            action="{{ route('super.compagnie.update', $compagnie->mime) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method("PUT")
+                                                            <div class="form-group">
+                                                                <input type="text"
+                                                                    class="form-control form-control-user" id="nom"
+                                                                    name="nom" value="{{ $compagnie->nom }}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="email"
+                                                                    class="form-control form-control-user" id="email"
+                                                                    name="email" value="{{ $compagnie->email }}">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                                    <input type="password"
+                                                                        class="form-control form-control-user"
+                                                                        id="password" name="password"
+                                                                        placeholder="Nouveau mot de passe">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <input type="password"
+                                                                        class="form-control form-control-user"
+                                                                        id="password_confirmation"
+                                                                        name="password_confirmation"
+                                                                        placeholder="Confirmez le mot de passe">
+                                                                </div>
+                                                            </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-secondary" href="#!" type="button"
+                                                            data-dismiss="modal">Annuler</a>
+                                                        <button class="btn btn-success" type="submit">Mettre à
+                                                            jour</button>
+                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
-
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
+    </div>
 
     </div>
 
@@ -231,7 +235,6 @@
 
 
     @if (session('success'))
-
         <script>
             toastr.success("{{ session('success') }}", "Félicitation !", {
                 timeOut: 5000
@@ -240,26 +243,50 @@
     @endif
 
     @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <script>
-                    toastr.error("{{$error}}", "Erreur !", {timeOut: 5000});
-                </script>
-            @endforeach
+        @foreach ($errors->all() as $error)
+            <script>
+                toastr.error("{{ $error }}", "Erreur !", {
+                    timeOut: 5000
+                });
+            </script>
+        @endforeach
         </h6>
     @endif
-    {{-- @if (session('error'))
-        <script>
-            toastr.error("{{ session('error') }}", "Félicitation !", {
-                timeOut: 5000
-            });
-        </script>
-    @endif --}}
     <script>
+        var table = $('#dataTable')
+                .DataTable({
+                    "language": {
+                "sEmptyTable":     "Aucune donnée disponible dans le tableau",
+                "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                "sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ éléments",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucun élément correspondant trouvé",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            },
+                });
         window.baseUrl = "{{ URL::to('/') }}";
-
-
-
-
 
         var addCompagnieValidator = $("#add_compagnie_form").validate({
             errorClass: "invalid",
