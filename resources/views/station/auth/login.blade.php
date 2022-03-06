@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{{ asset("assets/logo-mini.png") }}" type="image/x-icon">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Connectez-vous !</title>
     <link href="{{asset("assets/station/css/style.css")}}" rel="stylesheet">
