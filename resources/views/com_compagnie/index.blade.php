@@ -114,7 +114,7 @@
         for (let i = 0; i < transactions.length; i++) {
             let build = {
                 m: months[i],
-                b: transactions[i]
+                v: transactions[i]
             }
             data.push(build);
         }
@@ -142,7 +142,7 @@
                 element: 'sale-chart',
                 data: data,
                 xkey: ['m'],
-                ykeys: ['b'],
+                ykeys: ['v'],
                 labels: ["Ventes"],
                 pointSize: 3,
                 fillOpacity: 0,
