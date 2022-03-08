@@ -63,8 +63,8 @@
                                                         echo strftime('%d %B %G à %H:%m', strtotime($station->created_at));
                                                     @endphp</td>
                                                     <td>{{ $station["n_agents"] }}</td>
-                                                    <td>{{ $station["ventes_totales"] }}</td>
                                                     <td>{{ $station["ventes_ce_mois"] }}</td>
+                                                    <td>{{ $station["ventes_totales"] }}</td>
                                                     <td><a class="btn-sm btn-info text-white" href="{{ route("compagnie.station.show",$station->mime) }}">Details</a></td>
                                                     <td><a class="btn-sm btn-success text-white" href="{{ route("compagnie.station.edit",$station->mime) }}">Mettre à jour</a></td>
                                                     <td>

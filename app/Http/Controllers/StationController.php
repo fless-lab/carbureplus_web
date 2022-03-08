@@ -19,12 +19,12 @@ class StationController extends Controller
     {
         //Pour le graph ...
 
-        $trans = Transaction::where("status", "succeed")->where("station_id", session("station.id"))->select("id", "created_at", "montant")
+        $trans = Transaction::where("status", "succeed")->where("compagnie_id",session("station.compagnie_id"))->where("station_id", session("station.id"))->select("id", "updated_at", "montant")
             ->get()
             ->groupBy(function ($date) {
-                return Carbon::parse($date->created_at)->format("m"); //Action_date
+                return Carbon::parse($date->updated_at)->format("m"); //Action_date
             });
-        //dd($trans); //On recupere les données et elles sont classées par moi.
+        //dd($trans); //On recupere les données et elles sont classées par mois.
         $trans_total_by_month = [];
         $array = [];
 
@@ -56,13 +56,13 @@ class StationController extends Controller
         $transactions_this_month = 0;
         $transactions_today = 0;
         foreach ($transactions as $transaction) {
-            if (Carbon::parse($transaction["created_at"])->format("d/m/Y") == $today) {
+            if (Carbon::parse($transaction["updated_at"])->format("d/m/Y") == $today) {
                 $montant_total_today += $transaction["montant"];
                 $transactions_today++;
             }
         }
         foreach ($transactions as $transaction) {
-            if (Carbon::parse($transaction["created_at"])->format("m") == $this_month) {
+            if (Carbon::parse($transaction["updated_at"])->format("m") == $this_month) {
                 $montant_total_this_month += $transaction["montant"];
                 $transactions_this_month++;
             }
@@ -75,7 +75,7 @@ class StationController extends Controller
         $total = 0;
         $ventes = Transaction::where("compagnie_id", session("station.compagnie_id"))->where("station_id", session("station.id"))->where("status","succeed")->get();
         foreach ($ventes as $vente) {
-            // if (Carbon::parse($vente["created_at"])->format("m") == $this_month) {
+            // if (Carbon::parse($vente["updated_at"])->format("m") == $this_month) {
             $total += $vente["montant"];
             if ($vente["payment_method"] == "Flooz") {
                 $flooz += $vente["montant"];
@@ -212,7 +212,7 @@ class StationController extends Controller
                 $montant_total += $transaction["montant"];
             }
             foreach ($transactions as $transaction) {
-                if (Carbon::parse($transaction["created_at"])->format("m") == $this_month) {
+                if (Carbon::parse($transaction["updated_at"])->format("m") == $this_month) {
                     $montant_total_this_month += $transaction["montant"];
                 }
             }

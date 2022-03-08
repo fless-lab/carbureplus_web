@@ -1,7 +1,7 @@
 // Dashboard 1 Morris-chart
 $(function () {
     "use strict";
-   
+
 
     // LINE CHART
     let line = new Morris.Line({
@@ -242,7 +242,7 @@ $(function () {
         resize: true
 
     });
-    
+
  // Morris bar chart
  Morris.Bar({
     element: 'morris-bar-chart',

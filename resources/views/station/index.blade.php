@@ -65,7 +65,7 @@
             <div class="col-xl-4 col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Modes de paiement</h4>
+                        <h4 class="card-title">Modes de paiement (toutes les ventes)</h4>
                         <div id="moyen-de-paiement-chart">
                             </div>
                     </div>
@@ -96,7 +96,7 @@
             data: data,
             xkey: 'm',
             ykeys: ['a', 'b'],
-            labels: ['Cette Année', '2021'],
+            labels: ['2022', '2021'],
             barColors: ['#343957', '#5873FE'],
             hideHover: 'auto',
             gridLineColor: '#eef0f2',
