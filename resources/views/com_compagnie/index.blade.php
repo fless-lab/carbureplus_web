@@ -109,7 +109,7 @@
     <script src="{{ asset('assets/com_compagnie/plugins/morris/morris.min.js') }}"></script>
     <script>
         let transactions = @json($ventes_per_month); //Fake data
-        let months = ["1 Jan", "2 Fev", "3 Mar", "4 Avr", "5Mai", "6 Jun", "7 Jui", "8 Aou", "9 Sep", "10 Oct", "11 Nov", "12 Dec"];
+        let months = ["Jan", "Fev", "Mar", "Avr", "Mai", "Jun", "Jui", "Aou", "Sep", "Oct", "Nov", "Dec"];
         data = [];
         for (let i = 0; i < transactions.length; i++) {
             let build = {
@@ -145,6 +145,7 @@
                 ykeys: ['v'],
                 labels: ["Ventes"],
                 pointSize: 3,
+                parseTime: false,
                 fillOpacity: 0,
                 pointStrokeColors: ['#7571F9'],
                 behaveLikeLine: true,
