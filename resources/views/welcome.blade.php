@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
+        <meta name="description" content="Carbure +" />
         <meta name="author" content="" />
         <title>Bienvenu sur carbure +</title>
         <link rel="icon" type="image/x-icon" href="{{ asset("assets/logo-mini.png") }}" />
@@ -45,22 +45,22 @@
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
-                            <h3>Fully Responsive</h3>
-                            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
+                            <h3>Un système stable</h3>
+                            <p class="lead mb-0">Un système de gestion et d'administration stable et sécurisé<div class=""></div></p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
-                            <h3>Bootstrap 5 Ready</h3>
-                            <p class="lead mb-0">Featuring the latest build of the new Bootstrap 5 framework!</p>
+                            <div class="features-icons-icon d-flex"><i class="bi-key m-auto text-primary"></i></div>
+                            <h3>Un système sécurisé</h3>
+                            <p class="lead mb-0">Un système complètemeny digital permettant d'eviter les vols et fraudes.</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
-                            <h3>Easy to Use</h3>
-                            <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                            <div class="features-icons-icon d-flex"><i class="bi-star m-auto text-primary"></i></div>
+                            <h3>Facilité d'utilisation</h3>
+                            <p class="lead mb-0">Ce système est facile à prendre en main.</p>
                         </div>
                     </div>
                 </div>
@@ -69,24 +69,24 @@
         <section class="showcase">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-1.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white" style="background-image: url('assets/welcome/assets/img/bg-showcase-1.jpg');background-repeat:no-repeat"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>Fully Responsive Design</h2>
-                        <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
+                        <h2>Une interface pour la compagnie</h2>
+                        <p class="lead mb-0">Dans le but de permettre gestion et unr administration stable et transparente des differentes compagnies, un espace d'administration est proposée</p>
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-2.jpg')"></div>
+                    <div class="col-lg-6 text-white" style="background-image: url('assets/welcome/assets/img/bg-showcase-2.jpg');background-repeat:no-repeat"></div>
                     <div class="col-lg-6 my-auto showcase-text">
-                        <h2>Updated For Bootstrap 5</h2>
-                        <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 5!</p>
+                        <h2>Une interface pour la station</h2>
+                        <p class="lead mb-0">Chaque station dispose d'un espace leur permettant de gerer toutes les transactions effectuées par leur agent et eventuellement, possibilité y est d'ajouter de nouveaux agent.</p>
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white" style="background-image: url('assets/welcome/assets/img/bg-showcase-1.jpg');background-repeat:no-repeat"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>Easy to Use & Customize</h2>
-                        <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
+                        <h2>Une application mobile pour l'agent</h2>
+                        <p class="lead mb-0">Chaque agent appartenant à une station dispose d'une application mobile par le biais duquel toutes les transaction seront encaissées</p>
                     </div>
                 </div>
             </div>
