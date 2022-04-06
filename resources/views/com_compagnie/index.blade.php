@@ -108,7 +108,7 @@
     <script src="{{ asset('assets/com_compagnie/plugins/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('assets/com_compagnie/plugins/morris/morris.min.js') }}"></script>
     <script>
-        let transactions = @json($ventes_per_month); //Fake data
+        let transactions = @json($ventes_per_month);
         let months = ["Jan", "Fev", "Mar", "Avr", "Mai", "Jun", "Jui", "Aou", "Sep", "Oct", "Nov", "Dec"];
         data = [];
         for (let i = 0; i < transactions.length; i++) {
