@@ -133,6 +133,7 @@
                     label: "Bon",
                     value: {{ $bon }}
                 }],
+                formatter: function (y, data) { return y.toLocaleString('tg')  },
                 resize: true,
                 colors: ['#4d7cff', '#7571F9', '#9097c4']
             });
@@ -153,7 +154,8 @@
                 lineWidth: 1,
                 hideHover: 'auto',
                 lineColors: ['#7571F9'],
-                resize: true
+                resize: true,
+                yLabelFormat: function (y, data) { return y.toLocaleString('tg')  },
 
             });
 
