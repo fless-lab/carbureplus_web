@@ -33,11 +33,11 @@
 
                                         <tr>
                                             <td>{{ $i+1 }}</td>
-                                        <td> {{$transaction->phone??"-"}}</td>
+                                        <td>{{$transaction->phone??"-"}}</td>
                                         <td>{{ $transaction->payment_method }}</td>
-                                        <td>{{ $transaction->montant }}</td>
-                                        <td>{{ $transaction->valeur_bon??"-"}}</td>
-                                        <td>{{ $transaction->monnaie_recu??"-" }}</td>
+                                        <td>{{ number_format($transaction->montant,0,"."," ") }}</td>
+                                        <td>{{ number_format($transaction->valeur_bon,0,"."," ")??"-"}}</td>
+                                        <td>{{ number_format($transaction->monnaie_recu,0,"."," ")??"-" }}</td>
                                         <td >@php
                                             setlocale(LC_TIME, 'fr_FR');
                                             echo strftime('%d %B %G à %H:%m', strtotime($transaction->created_at));

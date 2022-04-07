@@ -30,7 +30,7 @@
                     <div class="stat-widget-two card-body">
                         <div class="stat-content dib">
                             <div class="stat-text">Revenu (Ce mois)</div>
-                            <div class="stat-digit">(fcfa) {{ $total_month }}</div>
+                            <div class="stat-digit">(fcfa) {{number_format($total_month,0,"."," ")  }}</div>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
                             <div class="stat-text">Revenu (Aujourd'hui)</div>
-                            <div class="stat-digit">(fcfa) {{ $total_today }}</div>
+                            <div class="stat-digit">(fcfa) {{ number_format($total_today,0,"."," ") }} </div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,9 @@
             barColors: ['#343957', '#5873FE'],
             hideHover: 'auto',
             gridLineColor: '#eef0f2',
-            resize: true
+            resize: true,
+            yLabelFormat: function (y, data) { return y.toLocaleString('tg')  },
+
         });
 
         Morris.Donut( {
@@ -117,7 +119,9 @@
 			value: {{ $bon }}
         } ],
 		resize: true,
-		colors: [ '#007BFF', '#28A745', '#DC3545' ]
+		colors: [ '#007BFF', '#28A745', '#DC3545' ],
+        formatter: function (y, data) { return y.toLocaleString('tg')  },
+
 	} );
     </script>
 @endsection

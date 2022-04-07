@@ -34,8 +34,8 @@
                                             setlocale(LC_TIME, 'fr_FR');
                                             echo strftime('%d %B %G à %H:%m', strtotime($agent->created_at));
                                         @endphp</td>
-                                        <td>{{ $agent->total }}</td>
-                                        <td>{{ $agent->total_month }}</td>
+                                        <td>{{ number_format($agent->total,0,"."," ") }}</td>
+                                        <td>{{ number_format($agent->total_month,0,"."," ") }}</td>
                                         <td><a href="{{route("station.agent.update",$agent->mime)}}" style="color: green">Modifier</a></td>
                                         <td><a href="#!" style="color: red">Désactiver</a></td>
                                     </tr>
