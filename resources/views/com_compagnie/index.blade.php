@@ -57,7 +57,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Revenu total (fcfa)</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">{{ $total }}</h2>
+                                    <h2 class="text-white">{{ number_format($total,0,"."," "); }}</h2>
                                     <p class="text-white mb-0">Revenu total</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
@@ -69,7 +69,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Revenu ce mois (fcfa)</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">{{ $total_month }}</h2>
+                                    <h2 class="text-white">{{ number_format($total_month,0,"."," ") }}</h2>
                                     <p class="text-white mb-0">Revenu du mois</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>

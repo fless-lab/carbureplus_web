@@ -72,10 +72,12 @@ class CompagnieController extends Controller
                 $total_month += $vente["montant"];
             }
         }
-        // dd($arr);
+
 
         return view("com_compagnie.index", ["n_stations" => $n_station, "n_ventes" => $n_vente, "total" => $total, "total_month" => $total_month,"flooz"=>$flooz,"tmoney"=>$tmoney,"bon"=>$bon,"ventes_per_month"=>$trans_total_by_month]);
     }
+
+
 
     public function getLogin()
     {

@@ -55,11 +55,11 @@
                                             @foreach ($ventes as $vente)
                                                 <tr>
                                                     <td>{{ $i }}</td>
-                                                    <td>{{ $vente->phone??"-" }}</td>
-                                                    <td>{{ $vente->montant }}</td>
+                                                    <td>+228 {{ $vente->phone??"-" }}</td>
+                                                    <td>{{ number_format($vente->montant,0,"."," ") }}</td>
                                                     <td>{{ $vente->payment_method }}</td>
-                                                    <td>{{ $vente->valeur_bon??"-" }}</td>
-                                                    <td>{{ $vente->monnaie_recu??"-" }}</td>
+                                                    <td>{{ number_format($vente->valeur_bon,0,"."," ")??"-" }}</td>
+                                                    <td>{{ number_format($vente->monnaie_recu,0,"."," ")??"-" }}</td>
                                                     <td>{{ $vente->status }}</td>
                                                     <td>@php
                                                         setlocale(LC_TIME, 'fr_FR');

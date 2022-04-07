@@ -45,9 +45,9 @@
                                                 <th>Nombre d'agents</th>
                                                 <th>Ventes ce mois</th>
                                                 <th>Ventes totale</th>
-                                                <th>Action 1</th>
-                                                <th>Action 2</th>
-                                                <th>Action 3</th>
+                                                <th>Détails</th>
+                                                <th>Mettre à jour</th>
+                                                <th>Supprimer</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,8 +63,8 @@
                                                         echo strftime('%d %B %G à %H:%m', strtotime($station->created_at));
                                                     @endphp</td>
                                                     <td>{{ $station["n_agents"] }}</td>
-                                                    <td>{{ $station["ventes_ce_mois"] }}</td>
-                                                    <td>{{ $station["ventes_totales"] }}</td>
+                                                    <td>{{ number_format($station["ventes_ce_mois"],0,"."," ") }}</td>
+                                                    <td>{{ number_format($station["ventes_totales"],0,"."," ") }}</td>
                                                     <td><a class="btn-sm btn-info text-white" href="{{ route("compagnie.station.show",$station->mime) }}">Details</a></td>
                                                     <td><a class="btn-sm btn-success text-white" href="{{ route("compagnie.station.edit",$station->mime) }}">Mettre à jour</a></td>
                                                     <td>
