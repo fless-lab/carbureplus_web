@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="media align-items-center mb-4">
-                            <img class="mr-3 rounded-circle" src="/images/logos/{{ session("compagnie.logo_path") }}" width="80" height="80" alt="">
+                            <img class="mr-3 rounded-circle" src="{{ asset("images/logos/".session("compagnie.logo_path")) }}" width="80" height="80" alt="">
                             <div class="media-body">
                                 <h3 class="mb-0">{{ Str::ucfirst(Str::lower(session("compagnie.nom"))) }}</h3>
                             </div>
