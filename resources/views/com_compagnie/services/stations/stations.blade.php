@@ -60,7 +60,7 @@
                                                     <td>{{ Str::ucfirst(Str::lower($station->nom)) }}</td>
                                                     <td>@php
                                                         setlocale(LC_TIME, 'fr_FR');
-                                                        echo strftime('%d %B %G à %H:%m', strtotime($station->created_at));
+                                                        echo strftime('%d %B %G à %H:%I:%S', strtotime($station->created_at));
                                                     @endphp</td>
                                                     <td>{{ $station["n_agents"] }}</td>
                                                     <td>{{ number_format($station["ventes_ce_mois"],0,"."," ") }}</td>

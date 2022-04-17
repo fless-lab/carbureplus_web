@@ -45,12 +45,12 @@
                                         <td>+228 {{ $transaction->agent->phone }}</td>
                                         <td >@php
                                             setlocale(LC_TIME, 'fr_FR');
-                                            echo strftime('%d %B %G à %H:%m', strtotime($transaction->created_at));
+                                            echo strftime('%d %B %G à %H:%I:%S', strtotime($transaction->created_at));
                                         @endphp</td>
                                         <td ><span class="badge">{{ $transaction->status }}</span></td>
                                         <td >@php
                                             setlocale(LC_TIME, 'fr_FR');
-                                            echo strftime('%d %B %G à %H:%m', strtotime($transaction->updated_at));
+                                            echo strftime('%d %B %G à %H:%I:%S', strtotime($transaction->updated_at));
                                         @endphp</td>
                                     @php
                                         $i++;

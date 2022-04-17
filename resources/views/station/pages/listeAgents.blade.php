@@ -32,7 +32,7 @@
                                         <td>+228 {{$agent->phone}}</td>
                                         <td>@php
                                             setlocale(LC_TIME, 'fr_FR');
-                                            echo strftime('%d %B %G à %H:%m', strtotime($agent->created_at));
+                                            echo strftime('%d %B %G à %H:%I:%S', strtotime($agent->created_at));
                                         @endphp</td>
                                         <td>{{ number_format($agent->total,0,"."," ") }}</td>
                                         <td>{{ number_format($agent->total_month,0,"."," ") }}</td>

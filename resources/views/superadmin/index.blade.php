@@ -79,9 +79,10 @@
                                         <tr>
                                             <td>{{ $compagnie->nom }}</td>
                                             <td>{{ $compagnie->email }}</td>
-                                            <td>@php
+                                            <td>
+                                                @php
                                                 setlocale(LC_TIME, 'fr_FR');
-                                                echo strftime('%d %B %G à %H:%m', strtotime($compagnie->created_at));
+                                                echo strftime('%A, %d %B %G à %H:%I:%S', strtotime($compagnie->created_at));
                                             @endphp</td>
                                             <td><a style="color: green" href="#" data-toggle="modal"
                                                     data-target="#updateCompagnieModal{{ $compagnie->id }}">Mettre à

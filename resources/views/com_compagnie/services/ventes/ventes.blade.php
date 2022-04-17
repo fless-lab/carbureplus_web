@@ -63,11 +63,11 @@
                                                     <td>{{ $vente->status }}</td>
                                                     <td>@php
                                                         setlocale(LC_TIME, 'fr_FR');
-                                                        echo strftime('%d %B %G à %H:%m', strtotime($vente->created_at));
+                                                        echo strftime('%d %B %G à %H:%I:%S', strtotime($vente->created_at));
                                                     @endphp</td>
                                                     <td>@php
                                                         setlocale(LC_TIME, 'fr_FR');
-                                                        echo strftime('%d %B %G à %H:%m', strtotime($vente->updated_at));
+                                                        echo strftime('%d %B %G à %H:%I:%S', strtotime($vente->updated_at));
                                                     @endphp</td>
                                                     <td>{{ Str::upper($vente["agent"]["nom"]) }} {{ Str::ucfirst($vente["agent"]["prenom"]) }}</td>
                                                     <td>+228 {{ $vente["agent"]["phone"] }}</td>
