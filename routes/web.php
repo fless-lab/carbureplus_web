@@ -4,11 +4,13 @@ use App\Http\Controllers\StationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\CompagnieController;
-
+use App\Http\Controllers\ContactController;
 
 Route::get("/",function(){
     return view("welcome");
 });
+
+Route::post("/send_contact_form",[ContactController::class,"sendMail"])->name("send.contact_email");
 
 // Route::get("/",function(){
 //     return view("com_compagnie.services.stations.add");
